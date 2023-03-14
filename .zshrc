@@ -153,7 +153,7 @@ export SAVEHIST=10000
 # export MANPAGER="nvim -c 'set ft=man' -"
  
 
-export EDITOR="emacsclient -c" #"nvim"                  # $EDITOR opens in terminal
+export EDITOR="nvim"  #  "emacsclient -c"                  # $EDITOR opens in terminal
 
 export SCRIPTS="/home/jack/scripts"
 export ARCHFLAGS="-arch x86_64"
@@ -226,3 +226,13 @@ unset __conda_setup
 
 eval "$(zoxide init zsh)"     
 alias ly='lazygit --use-config-file "$HOME/.config/yadm/lazygit.yml,$HOME/Library/Application Support/lazygit/config.yml" --work-tree ~ --git-dir ~/.local/share/yadm/repo.git'
+eval "$(zellij setup --generate-auto-start zsh)"
+
+source /Users/jackdenny/.config/broot/launcher/bash/br
+
+# bun completions
+[ -s "/Users/jackdenny/.bun/_bun" ] && source "/Users/jackdenny/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
