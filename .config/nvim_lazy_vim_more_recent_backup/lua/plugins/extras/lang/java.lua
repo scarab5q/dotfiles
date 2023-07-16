@@ -25,12 +25,12 @@ return {
       setup = {
         jdtls = function(_, opts)
           -- Determine OS
-          if vim.fn.has "mac" == 1 then
+          if vim.fn.has("mac") == 1 then
             CONFIG = "mac"
-          elseif vim.fn.has "unix" == 1 then
+          elseif vim.fn.has("unix") == 1 then
             CONFIG = "linux"
           else
-            print "Unsupported system"
+            print("Unsupported system")
           end
 
           local mason_registry = require("mason-registry")
@@ -46,12 +46,12 @@ return {
 
           local jar_patterns = {
             java_dbg_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar",
-            java_test_path .. "/extension/server/*.jar"
+            java_test_path .. "/extension/server/*.jar",
           }
 
           local bundles = {}
           for _, jar_pattern in ipairs(jar_patterns) do
-            for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), '\n')) do
+            for _, bundle in ipairs(vim.split(vim.fn.glob(jar_pattern), "\n")) do
               table.insert(bundles, bundle)
             end
           end
@@ -59,7 +59,7 @@ return {
           local extendedClientCapabilities = vim.tbl_deep_extend("force", require("jdtls").extendedClientCapabilities, {
             resolveAdditionalTextEditsSupport = true,
             progressReportProvider = false,
-          });
+          })
 
           local function print_test_results(items)
             if #items > 0 then
@@ -86,16 +86,21 @@ return {
                   require("lazyvim.plugins.lsp.format").on_attach(client, buffer)
                   require("lazyvim.plugins.lsp.keymaps").on_attach(client, buffer)
                   -- custom keymaps
-                  vim.keymap.set("n", "<leader>co", function() require("jdtls").organize_imports() end, { buffer = buffer, desc = "Organize Imports" })
-                  vim.keymap.set("n", "<leader>ct", function() require("jdtls").pick_test({ bufnr = buffer, after_test = print_test_results }) end, { buffer = buffer, desc = "Run Test" })
+                  vim.keymap.set("n", "<leader>co", function()
+                    require("jdtls").organize_imports()
+                  end, { buffer = buffer, desc = "Organize Imports" })
+                  vim.keymap.set("n", "<leader>ct", function()
+                    require("jdtls").pick_test({ bufnr = buffer, after_test = print_test_results })
+                  end, { buffer = buffer, desc = "Run Test" })
                   require("jdtls").setup_dap({ hotcodereplace = "auto" })
                   require("jdtls.dap").setup_dap_main_class_configs()
                   require("jdtls.setup").add_commands()
                 end,
                 cmd = {
                   jdtls_bin,
-                  "-data", workspace_folder,
-                  "--jvm-arg=-Xms2G"
+                  "-data",
+                  workspace_folder,
+                  "--jvm-arg=-Xms2G",
                 },
                 settings = {
                   java = {
@@ -104,7 +109,7 @@ return {
                     },
                     codeGeneration = {
                       toString = {
-                        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+                        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
                       },
                       useBlocks = true,
                     },
@@ -119,14 +124,14 @@ return {
                         "org.junit.jupiter.api.DynamicTest.*",
                         "org.mockito.Mockito.*",
                         "org.mockito.ArgumentMatchers.*",
-                        "org.mockito.Answers.*"
+                        "org.mockito.Answers.*",
                       },
                       importOrder = {
                         "#",
                         "java",
                         "javax",
                         "org",
-                        "com"
+                        "com",
                       },
                     },
                     contentProvider = { preferred = "fernflower" },
@@ -135,13 +140,13 @@ return {
                     },
                     flags = {
                       allow_incremental_sync = true,
-                      server_side_fuzzy_completion = true
+                      server_side_fuzzy_completion = true,
                     },
                     implementationsCodeLens = {
                       enabled = false, --Don"t automatically show implementations
                     },
                     inlayHints = {
-                      parameterNames = { enabled = "literals" }
+                      parameterNames = { enabled = "literals" },
                     },
                     maven = {
                       downloadSources = true,
@@ -158,8 +163,8 @@ return {
                     signatureHelp = { enabled = true },
                     sources = {
                       organizeImports = {
-                        starThreshold = 9999;
-                        staticStarThreshold = 9999;
+                        starThreshold = 9999,
+                        staticStarThreshold = 9999,
                       },
                     },
                   },
@@ -167,7 +172,7 @@ return {
                 init_options = {
                   extendedClientCapabilities = extendedClientCapabilities,
                   bundles = bundles,
-                }
+                },
               })
               jdtls.start_or_attach(jdtls_config)
             end,

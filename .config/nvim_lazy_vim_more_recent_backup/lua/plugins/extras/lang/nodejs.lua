@@ -13,7 +13,7 @@ return {
         "David-Kunz/cmp-npm",
         event = { "BufRead package.json" },
         config = true,
-      }
+      },
     },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
@@ -21,7 +21,7 @@ return {
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
         { name = "npm", keyword_length = 3 },
       }))
-    end
+    end,
   },
 
   -- add rust to treesitter
@@ -36,10 +36,12 @@ return {
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "css-lsp", "eslint-lsp", "html-lsp", "js-debug-adapter", "stylelint-lsp" })
+      vim.list_extend(
+        opts.ensure_installed,
+        { "css-lsp", "eslint-lsp", "html-lsp", "js-debug-adapter", "stylelint-lsp" }
+      )
     end,
   },
-
 
   {
     "mxsdev/nvim-dap-vscode-js",
@@ -69,10 +71,9 @@ return {
             name = "Attach (" .. language .. ")",
             processId = require("dap.utils").pick_process,
             cwd = "${workspaceFolder}",
-          }
+          },
         }
       end
-    end
+    end,
   },
-
 }

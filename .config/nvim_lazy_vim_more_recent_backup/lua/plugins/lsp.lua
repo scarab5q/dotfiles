@@ -11,6 +11,7 @@ return {
           "MunifTanjim/nui.nvim",
         },
         opts = { lsp = { auto_attach = true } },
+        keys = { { "<leader>jb", "<cmd>Navbuddy<cr>", desc = "Navbuddy" } },
       },
     },
     ---@class PluginLspOpts
@@ -20,7 +21,21 @@ return {
         -- sourcekit will be automatically installed with mason and loaded with lspconfig
         sourcekit = {},
         zls = {},
+        -- ruff_lsp = {},
+        pyright = {},
       },
+    },
+  },
+  {
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+      --Please make sure you install markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" },
     },
   },
 
@@ -41,10 +56,13 @@ return {
     },
   },
 
+  { "liuchengxu/vista.vim" },
+
   -- language specific extension modules
   { import = "lazyvim.plugins.extras.lang.typescript" },
   -- { import = "lazyvim.plugins.extras.lang.json" },
   { import = "plugins.extras.lang.java" },
   { import = "plugins.extras.lang.rust" },
   { import = "plugins.extras.lang.nodejs" },
+  -- { import = "plugins.extras.lang.python" },
 }

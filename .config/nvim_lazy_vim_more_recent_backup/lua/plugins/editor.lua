@@ -18,10 +18,36 @@ return {
         find = "sf", -- Find surrounding (to the right)
         find_left = "sF", -- Find surrounding (to the left)
         highlight = "sh", -- Highlight surrounding
-        replace = "sr", -- Replace surrounding
         update_n_lines = "sn", -- Update `n_lines`
+        replace = "sr", -- Replace surrounding
         suffix_last = "l", -- Suffix to search with "prev" method
         suffix_next = "n", -- Suffix to search with "next" method
+      },
+    },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    --stylua: ignore
+    keys = {
+
+      { "<leader>ja", function() require("harpoon.mark").add_file() end, desc = "Add File" },
+      { "<leader>jm", "<cmd>Telescope harpoon marks<cr>", desc = "File Menu" },
+      { "<leader>jM", function() require("harpoon.ui").toggle_quick_menu() end, desc = "File Menu" },
+      { "<leader>jd", function() require("harpoon.mark").to_quickfix_list() end, desc = "File Menu" },
+      { "<leader>jc", function() require("harpoon.cmd-ui").toggle_quick_menu() end, desc = "Command Menu" },
+      { "<leader>jn", function() require("harpoon.nav-next").toggle_quick_menu() end, desc = "Navigate to Next" },
+      { "<leader>jp", function() require("harpoon.nav-prev").toggle_quick_menu() end, desc = "Navigate to Prev" },
+      { "<leader>1", function() require("harpoon.ui").nav_file(1) end, desc = "File 1" },
+      { "<leader>2", function() require("harpoon.ui").nav_file(2) end, desc = "File 2" },
+      { "<leader>3", function() require("harpoon.term").gotoTerminal(1) end, desc = "Terminal 1" },
+      { "<leader>4", function() require("harpoon.term").gotoTerminal(2) end, desc = "Terminal 2" },
+      { "<leader>5", function() require("harpoon.term").sendCommand(1,1) end, desc = "Command 1" },
+      { "<leader>6", function() require("harpoon.term").sendCommand(1,2) end, desc = "Command 2" },
+    },
+    opts = {
+      global_settings = {
+        save_on_toggle = true,
+        enter_on_sendcmd = true,
       },
     },
   },
@@ -151,17 +177,34 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("project")
       telescope.load_extension("undo")
+      telescope.load_extension("harpoon")
     end,
   },
 
   -- which-key extensions
   {
     "folke/which-key.nvim",
-    opts = function()
-      require("which-key").register({
-        ["<leader>d"] = { name = "+debug", mode = { "n", "v" } },
-      })
-    end,
+    opts = {
+      defaults = {
+        mode = { "n", "v" },
+        ["g"] = { name = "+goto" },
+        ["gz"] = { name = "+surround" },
+        ["]"] = { name = "+next" },
+        ["["] = { name = "+prev" },
+        ["<leader><tab>"] = { name = "+tabs" },
+        ["<leader>b"] = { name = "+buffer" },
+        ["<leader>c"] = { name = "+code" },
+        ["<leader>j"] = { name = "+jump/navigation" },
+        ["<leader>f"] = { name = "+file/find" },
+        ["<leader>g"] = { name = "+git" },
+        ["<leader>gh"] = { name = "+hunks" },
+        ["<leader>q"] = { name = "+quit/session" },
+        ["<leader>s"] = { name = "+search" },
+        ["<leader>u"] = { name = "+ui" },
+        ["<leader>w"] = { name = "+windows" },
+        ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      },
+    },
   },
 
   -- git blame
