@@ -2,7 +2,7 @@
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
+==l==================================================================
 
 Kickstart.nvim is *not* a distribution.
 
@@ -204,7 +204,12 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  { import = 'custom.plugins' },
+  {
+    import = 'custom.plugins'
+  },
+  {
+    import = 'core'
+  }
 }, {})
 
 -- [[ Setting options ]]
@@ -442,7 +447,7 @@ local servers = {
   },
 }
 
--- Setup neovim lua configuration
+-- Setup neovim lfua configuration
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -479,9 +484,12 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end,
   },
+
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
