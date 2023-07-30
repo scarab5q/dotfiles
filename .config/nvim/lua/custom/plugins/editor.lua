@@ -10,10 +10,42 @@ return {
       -- refer to the configuration section below
     },
 
+    keys = {
+      {
+        "<leader>xx",
+        mode = { "n" },
+        function() require("trouble").open() end,
+        desc =
+        "Trouble Open"
+      },
+      {
+        "<leader>xw",
+        mode = { "n" },
+        function() require("trouble").open("workspace_diagnostics") end,
+        desc =
+        "Trouble Workspace Diagnostics"
+      },
+      {
+        "<leader>xd",
+        mode = { "n" },
+        function() require("trouble").open("document_diagnostics") end,
+        desc =
+        "Trouble Document Diagnostics"
+      },
+      { "<leader>xq", mode = { "n" }, function() require("trouble").open("quickfix") end, desc = "Trouble Quickfix" },
+      {
+        "<leader>xl",
+        mode = { "n" },
+        function() require("trouble").open("loclist") end,
+        desc =
+        " Trouble Location List"
+      },
+    }
+
   },
   "folke/flash.nvim",
   event = "VeryLazy",
-  ---@type Flash.Config
+  ---type Flash.Config
   opts = {},
   -- stylua: ignore
   keys = {

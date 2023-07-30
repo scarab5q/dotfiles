@@ -135,9 +135,17 @@ require('lazy').setup({
       end,
     },
   },
-
   {
-    -- Theme inspired by Atom
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'catppuccin'
+    end
+  },
+  {
+    -- Th
+    --  eme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
@@ -286,13 +294,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
+-- See `:help telescope` and `:help telescope.setup()`k
+local telescope_actions = require('telescope.actions')
 require('telescope').setup {
   defaults = {
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ["<C-h>"] = "which_key",
+        ['<C-j>'] = telescope_actions
       },
     },
   },
